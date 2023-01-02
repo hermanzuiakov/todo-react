@@ -38,16 +38,27 @@ const Home = () => {
 
             <ToDoField setToDos={setToDos}/>
 
-            {
-                toDos.map(toDo => (
-                    <ToDoItem
-                        key={toDo._id}
-                        task={toDo}
-                        changeToDo = {changeToDo}
-                        removeToDo = {removeToDo}
-                    />
-                ))
-            }
+            <>
+                {toDos?.length > 0 ? (
+                    <div>
+                        {
+                            toDos.map(toDo => (
+                                <ToDoItem
+                                    key={toDo._id}
+                                    task={toDo}
+                                    changeToDo = {changeToDo}
+                                    removeToDo = {removeToDo}
+                                />
+                            ))
+                        }
+                    </div>
+                ) : (
+                    <div>
+                        No task found
+                    </div>
+                )}
+            </>
+
         </div>
     );
 };
