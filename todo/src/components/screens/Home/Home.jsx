@@ -1,27 +1,21 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import ToDoItem from "./item/ToDoItem";
 import ToDoField from "./ToDoField/ToDoField";
 
-const data = [
-    {
-        _id: "wesdssadf",
-        title: 'Finish essay',
-        isCompleted: true
-    },
-    {
-        _id: "wddffdadf",
-        title: 'Finish essay',
-        isCompleted: false
-    },
-    {
-        _id: "wedsggggdadf",
-        title: 'Finish essay',
-        isCompleted: true
-    }
-]
-
 const Home = () => {
-    const [toDos, setToDos] = useState(data);
+
+    const [toDos, setToDos] = useState(() => {
+        const savedToDos = localStorage.getItem("toDos");
+        if (savedToDos) {
+            return JSON.parse(savedToDos);
+        } else {
+            return [];
+        }
+    });
+
+    useEffect(() => {
+        localStorage.setItem("toDos", JSON.stringify(toDos));
+    }, [toDos]);
 
     const changeToDo = id => {
         const copy = [...toDos]
