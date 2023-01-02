@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {MdOutlineAdd} from "react-icons/md";
 
-const ToDoField = ({setToDos}) => {
+const ToDoField = ({setToDos, darkToggle}) => {
     const [title, setTitle] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
@@ -27,14 +27,19 @@ const ToDoField = ({setToDos}) => {
     }
 
     return <div>
-        <div className="flex justify-between items-center mb-4 rounded-2xl bg-zinc-800 p-5 w-full">
+        <div
+            className={`
+            ${darkToggle ? 'bg-zinc-800' : 'bg-indigo-50'}
+            flex justify-between items-center mb-4 rounded-2xl p-5 w-full
+            `}
+        >
             <input
                 type="text"
                 id="taskField"
                 onChange={e => setTitle(e.target.value)}
                 value={title}
                 onKeyPress={e => e.key === 'Enter' && addToDo(title)}
-                className='bg-transparent w-full border-none outline-none'
+                className={`bg-transparent w-full border-none outline-none`}
                 placeholder='Add a task'
             />
 
@@ -46,7 +51,7 @@ const ToDoField = ({setToDos}) => {
                 }
             >
                 <MdOutlineAdd
-                    className="text-white rounded-lg bg-pink-400"
+                    className={`${darkToggle ? 'bg-pink-400' : 'bg-indigo-300'} text-white rounded-lg`}
                     size={24}
                 />
             </button>
