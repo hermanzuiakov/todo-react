@@ -3,7 +3,14 @@ import ToDoItem from "./item/ToDoItem";
 import ToDoField from "./ToDoField/ToDoField";
 
 const Home = () => {
-    const [darkToggle, setDarkToggle] = React.useState(false)
+    const [darkToggle, setDarkToggle] = useState(() => {
+        const darkToggle = localStorage.getItem("darkToggle");
+        if (darkToggle) {
+            return JSON.parse(darkToggle);
+        } else {
+            return false;
+        }
+    });
 
     const [toDos, setToDos] = useState(() => {
         const savedToDos = localStorage.getItem("toDos");
@@ -16,7 +23,8 @@ const Home = () => {
 
     useEffect(() => {
         localStorage.setItem("toDos", JSON.stringify(toDos));
-    }, [toDos]);
+        localStorage.setItem("darkToggle", JSON.stringify(darkToggle));
+    }, [toDos, darkToggle]);
 
     const changeToDo = id => {
         const copy = [...toDos]
@@ -37,7 +45,11 @@ const Home = () => {
                     <h1 className="text-2xl font-bold text-center mb-10 mr-3">ToDo App</h1>
 
                     <label className="toggleDarkBtn">
-                        <input type="checkbox" onClick={() => setDarkToggle(!darkToggle)}/>
+                        <input
+                            checked={darkToggle}
+                            type="checkbox"
+                            onClick={() => setDarkToggle(!darkToggle)}
+                        />
                         <span className="slideBtnTg round"></span>
                     </label>
                 </div>
