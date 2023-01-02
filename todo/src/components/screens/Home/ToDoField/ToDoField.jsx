@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {MdOutlineAdd} from "react-icons/md";
 
 const ToDoField = ({setToDos}) => {
     const [title, setTitle] = useState('');
@@ -15,11 +16,6 @@ const ToDoField = ({setToDos}) => {
         setTitle('')
     }
 
-    function getTitle() {
-        const title = document.getElementById('taskField').value;
-        addToDo(title);
-    }
-
     return <div className="flex justify-between items-center mb-4 rounded-2xl bg-zinc-800 p-5 w-full">
         <input
             type="text"
@@ -30,6 +26,19 @@ const ToDoField = ({setToDos}) => {
             className='bg-transparent w-full border-none outline-none'
             placeholder='Add a task'
         />
+
+        <button
+            onClick={
+                () => {
+                    addToDo(title)
+                }
+            }
+        >
+            <MdOutlineAdd
+                className="text-white rounded-lg bg-pink-400"
+                size={24}
+            />
+        </button>
     </div>;
 };
 
